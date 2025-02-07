@@ -5,7 +5,6 @@ const API = process.env.GEMINI_API_KEY || "";
 
 export async function POST(req: NextRequest) {
   try {
-    // Validate API key
     if (!API) {
       return NextResponse.json(
         { message: "API key is missing" },
@@ -13,11 +12,9 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // Parse request body
     const body = await req.json();
     const topic = body?.topic?.trim();
 
-    // Validate topic
     if (!topic) {
       return NextResponse.json(
         { message: "Topic is required" },
@@ -27,24 +24,25 @@ export async function POST(req: NextRequest) {
 
     const genAI = new GoogleGenerativeAI(API);
 
-    const prompt = `Generate PowerPoint slide content in JSON format for the given topic. Each slide should have a title, a description, and an optional example (if relevant).
-
-### Input:
-Topic: "${topic}"
-
-### Output Format:
-{
-  "slides": [
-    { 
-      "title": "Slide Title", 
-      "description": "Slide Description", 
-      "list": (optional) ["1. Any list data", "2. second line regarding topic", ... so on],
-      "example": "(optional) Any example if required"
+    const prompt = `
+    Generate PowerPoint slide content in JSON format for the given topic.
+     Each slide should have a title, a description, and an optional example (if relevant).
+     ### Input
+     Topic: "${topic}"
+     ### Output Format:
+     {
+      "slides": 
+      [
+        { 
+          "title": "Slide Title", 
+          "description": "Slide Description", 
+          "list": (optional) ["1. Any list data", "2. second line regarding topic", ... so on],
+          "example": "(optional) Any example if required"
+        }
+      ]
     }
-  ]
-}
-
-Now, generate a similar JSON output for the topic: "${topic}". Ensure the JSON is properly formatted and does not include any code block markers.`;
+      Now, generate a similar JSON output for the topic: "${topic}".
+       Ensure the JSON is properly formatted and does not include any code block markers.`;
 
     const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
     const result = await model.generateContent(prompt);
