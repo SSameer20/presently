@@ -149,6 +149,7 @@ const defaultItemAnimationVariants: Record<
         filter: "blur(0px)",
         y: 0,
         transition: {
+          delay,
           y: { duration: 0.3 },
           opacity: { duration: 0.4 },
           filter: { duration: 0.3 },
@@ -175,6 +176,7 @@ const defaultItemAnimationVariants: Record<
         filter: "blur(0px)",
         y: 0,
         transition: {
+          delay,
           y: { duration: 0.3 },
           opacity: { duration: 0.4 },
           filter: { duration: 0.3 },
@@ -302,14 +304,10 @@ const defaultItemAnimationVariants: Record<
 
 export function TextAnimate({
   children,
-  delay = 0,
-  duration = 0.3,
-  variants,
   className,
   segmentClassName,
   as: Component = "p",
   startOnView = true,
-  once = false,
   by = "word",
   animation = "fadeIn",
   ...props
