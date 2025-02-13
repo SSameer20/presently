@@ -13,6 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
+  icons: "/images/logo.png",
   title: "Presently | Easy AI Generated Slides",
   description:
     "Create stunning, professional slides in seconds with Presently - the AI-powered slide generator. Perfect for presentations, pitches, and reports. Save time, boost creativity, and impress your audience with AI-generated slides tailored to your needs. Try it now!",

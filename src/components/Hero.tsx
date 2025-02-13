@@ -1,12 +1,14 @@
 import { Meteors } from "@/components/meteors";
-import { TextAnimateDemo } from "./TextAnimate";
+import { TextAnimateDemo } from "./ui/TextAnimate";
 import { Amiko } from "next/font/google";
+import { Button } from "./ui/button";
+import { motion } from "motion/react";
 export const amikoSemi = Amiko({ weight: "400", subsets: ["latin"] });
 export const amikoBold = Amiko({ weight: "700", subsets: ["latin"] });
 export function Hero({ className }: { className?: string }) {
   return (
     <div
-      className={`relative ${className} overflow-hidden w-full h-screen flex flex-col justify-center items-center text-center px-6 `}
+      className={`relative ${className} overflow-hidden flex flex-col justify-center items-center text-center px-6 `}
     >
       <Meteors number={10} />
 
@@ -34,12 +36,27 @@ export function Hero({ className }: { className?: string }) {
             className="md:text-6xl text-4xl font-semibold text-[#7FA1C3]"
           />
         </div>
-        <TextAnimateDemo
-          by="word"
-          animation="blurInUp"
-          text="Perfect for presentations, pitches, and reports."
-          className={`${amikoSemi.className} text-lg md:text-xl text-[#6e6e6c]`}
-        />
+        <div className="w-full flex flex-col justify-center items-center gap-5">
+          <TextAnimateDemo
+            by="word"
+            animation="blurInUp"
+            text="Perfect for presentations, pitches, and reports."
+            className={`${amikoSemi.className} text-lg md:text-xl text-[#6e6e6c]`}
+          />
+
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{
+              delay: 0.5,
+              duration: 1,
+            }}
+          >
+            <Button onClick={() => (location.href = "/pages/generate")}>
+              Lets Start
+            </Button>
+          </motion.div>
+        </div>
       </div>
     </div>
   );
