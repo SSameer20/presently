@@ -17,7 +17,7 @@ export default function PageLayout({
     >
       <Sidebar className="flex-shrink-0 lg:w-48" />
 
-      <main className="flex-1 p-6 overflow-y-auto lg:w-[cal(100vh-12rem)]">
+      <main className="flex-1 overflow-y-auto lg:w-[cal(100vh-12rem)] p-0 m-0">
         {children}
       </main>
     </div>
