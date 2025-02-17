@@ -18,7 +18,7 @@ interface ResponseData {
 export default async function Page({
   searchParams,
 }: {
-  searchParams: { topic?: string };
+  searchParams: { topic?: string | undefined };
 }) {
   const { topic } = await searchParams;
   const response = await axios.post("http://localhost:3000/api/v1/generate", {
