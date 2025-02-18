@@ -21,7 +21,10 @@ export default async function Page({ searchParams }: Props) {
         <h2 className="text-3xl font-bold text-gray-400">
           {`Generated Slides for: ${topic}`}
         </h2>
-        <div className="flex gap-5 px-5 py-10 overflow-x-auto snap-x snap-mandatory">
+        <div
+          className="flex gap-5 px-5 py-10 overflow-x-auto snap-x snap-mandatory"
+          style={{ scrollbarWidth: "none" }}
+        >
           {slides.map((item, index) => (
             <div
               key={index}
