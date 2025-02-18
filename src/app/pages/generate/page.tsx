@@ -2,33 +2,30 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { useRef } from "react";
+import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
-import { useToast } from "@/hooks/use-toast"; // Fixed import
 
 export default function Page() {
-  const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
+  const inputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
-
   const handleCreate = () => {
-    const topic = inputRef.current?.value; // Get and trim input value
-
-    if (!topic) {
-      toast({
+    try {
+      const topic = inputRef?.current?.value.trim();
+      if (topic === "" || topic === undefined) {
+        throw new Error("provide valid topic to generate slides");
+      }
+      router.push(`/pages/generate/slides?topic=${topic}`);
+    } catch (error) {
+      return toast({
         variant: "destructive",
-        title: "Invalid Input",
-        description: "Please enter a valid topic before proceeding.",
+        title: `${error}`,
       });
-      return;
     }
-
-    router.push(
-      `/pages/generate/slides?topic=${encodeURIComponent(topic.trim())}`
-    );
   };
 
   return (
-    <div className="w-full h-full flex flex-col items-center justify-center bg-gradient-to-tr from-black via-gray-900 to-gray-950 py-10 gap-10">
+    <div className="relative w-full h-full flex flex-col items-center justify-center bg-gradient-to-tr from-black via-gray-900 to-gray-950 py-10 gap-10">
       <div className="w-1/2 text-center flex flex-col gap-2">
         <span className="text-4xl font-sans font-medium text-gray-400">
           Hi, Sameer

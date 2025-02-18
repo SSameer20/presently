@@ -17,7 +17,13 @@ export default function PageLayout({
     >
       <Sidebar className="flex-shrink-0 lg:w-48" />
 
-      <main className="flex-1 overflow-y-auto lg:w-[cal(100vh-12rem)] p-0 m-0">
+      <main
+        className="flex-1 overflow-y-auto lg:w-[cal(100vh-12rem)] overflow-x-auto p-0 m-0"
+        style={{
+          scrollbarWidth: "none",
+          msOverflowStyle: "none",
+        }}
+      >
         {children}
       </main>
     </div>
