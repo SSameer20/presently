@@ -9,9 +9,12 @@ export default async function Page({ searchParams }: Props) {
   const params = await searchParams;
   const topic = params?.topic || "How AI Works";
 
-  const response = await axios.post("/api/v1/generate", {
-    topic,
-  });
+  const response = await axios.post(
+    "https://presently.sameer.digital/api/v1/generate",
+    {
+      topic,
+    }
+  );
   const data: GenerateResponseData = response.data;
   const slides = data.data?.slides || [];
 
