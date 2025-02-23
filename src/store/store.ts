@@ -7,7 +7,7 @@ export type SidebarState = {
 };
 
 export const useSidebar = create<SidebarState>((set) => ({
-  status: true,
+  status: false,
   openSidebar: () => set({ status: true }),
   closeSidebar: () => set({ status: false }),
 }));
