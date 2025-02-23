@@ -13,7 +13,7 @@ export default function PageLayout({
 }) {
   return (
     <div
-      className={`relative h-screen w-full overflow-y-auto overflow-x-hidden dark bg-background text-foreground flex`}
+      className={`relative h-screen w-full overflow-y-auto overflow-x-hidden dark bg-background text-foreground flex lg:flex-row sm:flex-col`}
     >
       <Sidebar className="flex-shrink-0 lg:w-48" />
 
