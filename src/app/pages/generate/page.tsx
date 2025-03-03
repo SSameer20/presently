@@ -36,7 +36,7 @@ export default function Page() {
     <div className="relative w-full h-full flex flex-col items-center justify-center bg-gradient-to-tr from-black via-gray-900 to-gray-950 py-10 gap-10">
       <div className="w-1/2 text-center flex flex-col gap-2">
         <span className="text-4xl font-sans font-medium text-gray-400">
-          Hi, Sameer
+          Welcome
         </span>
         <span className="text-3xl font-sans font-bold text-gray-200">
           How Can I Help You Today?
