@@ -17,4 +17,23 @@ model User{
   id          Int         @id             @default(autoincrement())
   email       String      @unique
   password    String
+  account     String
+  history     Slides[]
+  
+}
+
+model Slides {
+  id           Int                           @id @default(autoincrement())
+  userId       Int
+  slides       Slide[]  
+  user         User                          @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Slide {
+  id               Int                       @id @default(autoincrement())
+  slidesId         Int
+  title            String
+  description      String
+  list             String[] 
+  slides           Slides                    @relation(fields: [slidesId], references: [id], onDelete: Cascade)
 }
