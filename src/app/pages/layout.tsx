@@ -13,12 +13,12 @@ export default function PageLayout({
 }) {
   return (
     <div
-      className={`relative h-screen w-full overflow-y-auto overflow-x-hidden dark bg-background text-foreground flex lg:flex-row sm:flex-col`}
+      className={`relative h-screen w-full overflow-y-auto overflow-x-hidden dark bg-background text-foreground flex`}
     >
-      <Sidebar className="flex-shrink-0 lg:w-48" />
+      <Sidebar className="flex-shrink-0 w-48" />
 
       <main
-        className="flex-1 overflow-y-auto lg:w-[cal(100vh-12rem)] overflow-x-auto p-0 m-0"
+        className="flex-1 overflow-y-auto overflow-x-auto p-0 m-0"
         style={{
           scrollbarWidth: "none",
           msOverflowStyle: "none",

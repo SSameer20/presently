@@ -1,28 +1,36 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { useRef } from "react";
+import { useRef, useCallback } from "react";
 import { useToast } from "@/hooks/use-toast";
 import { useRouter } from "next/navigation";
+import { motion } from "motion/react";
 
 export default function Page() {
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement>(null);
   const { toast } = useToast();
-  const handleCreate = () => {
+
+  const handleCreate = useCallback(() => {
     try {
       const topic = inputRef?.current?.value.trim();
-      if (topic === "" || topic === undefined) {
-        throw new Error("provide valid topic to generate slides");
+      if (!topic) {
+        toast({
+          variant: "destructive",
+          title: "Please enter a valid topic.",
+        });
+        return;
       }
-      router.push(`/pages/generate/slides?topic=${topic}`);
+
+      router.push(`/pages/generate/slides?topic=${encodeURIComponent(topic)}`);
+      inputRef?.current?.focus();
     } catch (error) {
-      return toast({
+      toast({
         variant: "destructive",
-        title: `${error}`,
+        title: String(error),
       });
     }
-  };
+  }, [router, toast]);
 
   return (
     <div className="relative w-full h-full flex flex-col items-center justify-center bg-gradient-to-tr from-black via-gray-900 to-gray-950 py-10 gap-10">
@@ -41,14 +49,17 @@ export default function Page() {
           className="border-gray-500 focus:border-gray-700 focus:border-2 p-4 h-[50px] text-gray-950 bg-white"
           placeholder="Enter topic..."
           ref={inputRef}
+          onKeyDown={(e) => e.key === "Enter" && handleCreate()}
         />
-        <Button
-          className="w-[100px]"
-          variant="destructive"
-          onClick={handleCreate}
-        >
-          Create
-        </Button>
+        <motion.div whileTap={{ scale: 0.97 }}>
+          <Button
+            className="w-[100px] hover:opacity-90"
+            variant="destructive"
+            onClick={handleCreate}
+          >
+            Create
+          </Button>
+        </motion.div>
       </div>
     </div>
   );

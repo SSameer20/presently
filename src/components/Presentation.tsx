@@ -5,6 +5,7 @@ import pptxgen from "pptxgenjs";
 import { Button } from "@/components/ui/button";
 import { Download } from "lucide-react";
 import { Slide } from "@/lib/types";
+import { motion } from "motion/react";
 
 interface Props {
   topic?: string;
@@ -81,12 +82,14 @@ export default function Presentation({
   };
 
   return (
-    <Button
-      onClick={createSlides}
-      className={`${className} flex items-center gap-2`}
-    >
-      <Download className="w-4 h-4" />
-      Download Presentation
-    </Button>
+    <motion.div whileTap={{ scale: 0.9 }}>
+      <Button
+        onClick={createSlides}
+        className={`${className} flex items-center gap-2`}
+      >
+        <Download className="w-4 h-4" />
+        Download Presentation
+      </Button>
+    </motion.div>
   );
 }

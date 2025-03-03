@@ -52,9 +52,11 @@ export function Hero({ className }: { className?: string }) {
               duration: 1,
             }}
           >
-            <Button onClick={() => (location.href = "/pages/generate")}>
-              Lets Start
-            </Button>
+            <motion.div whileTap={{ scale: 0.9 }}>
+              <Button onClick={() => (location.href = "/pages/generate")}>
+                Lets Start
+              </Button>
+            </motion.div>
           </motion.div>
         </div>
       </div>
