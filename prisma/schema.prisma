@@ -14,17 +14,44 @@ datasource db {
 }
 
 model User{
-  id          Int         @id             @default(autoincrement())
+  id          String         @id             @default(uuid())
   email       String      @unique
   password    String
   account     String
   history     Slides[]
+  accounts      Account[]
+  sessions      Session[]
   
 }
 
+model Account {
+  id                String  @id @default(uuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String  @unique
+  refresh_token     String?  
+  access_token      String?  
+  expires_at        Int?      
+  token_type        String?  
+  scope             String?  
+  id_token          String?  
+  session_state     String?  
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Session {
+  id           String   @id @default(uuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
 model Slides {
   id           Int                           @id @default(autoincrement())
-  userId       Int
+  userId       String
   slides       Slide[]  
   user         User                          @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

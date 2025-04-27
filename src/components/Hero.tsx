@@ -3,14 +3,31 @@ import { TextAnimateDemo } from "./ui/TextAnimate";
 import { Amiko } from "next/font/google";
 import { Button } from "./ui/button";
 import { motion } from "motion/react";
+import { isUserSigned } from "@/store/store";
 export const amikoSemi = Amiko({ weight: "400", subsets: ["latin"] });
 export const amikoBold = Amiko({ weight: "700", subsets: ["latin"] });
 export function Hero({ className }: { className?: string }) {
+  const { status, logoutUser } = isUserSigned();
+  function handleAuth() {
+    if (status) {
+      return (location.href = "/pages/generate");
+    } else {
+      return (location.href = "/auth/login");
+    }
+  }
+
   return (
     <div
       className={`relative ${className} overflow-hidden flex flex-col justify-center items-center text-center px-6 `}
     >
       <Meteors number={10} />
+      <Button variant={"outline"} className="absolute top-5 right-5">
+        {status ? (
+          <span onClick={() => logoutUser()}>Logout</span>
+        ) : (
+          <span onClick={handleAuth}>Login</span>
+        )}
+      </Button>
 
       {/* Background Glows */}
       <div className="absolute top-[-10vh] left-[30vw] h-[100vh] w-[0px] shadow-[0_0_200px_60px_#578FCA] rounded-full rotate-[-45deg] opacity-25" />
@@ -53,9 +70,7 @@ export function Hero({ className }: { className?: string }) {
             }}
           >
             <motion.div whileTap={{ scale: 0.9 }}>
-              <Button onClick={() => (location.href = "/pages/generate")}>
-                Lets Start
-              </Button>
+              <Button onClick={handleAuth}>Lets Start</Button>
             </motion.div>
           </motion.div>
         </div>
